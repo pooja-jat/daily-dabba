@@ -14,6 +14,7 @@ import AdminUsers from "./pages/admin/AdminUsers";
 import AdminMeals from "./pages/admin/AdminMeals";
 import AdminRatings from "./pages/admin/AdminRatings";
 import { ToastContainer } from "react-toastify";
+import Meals from "./pages/Meals";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/meals" element={<Meals />} />
           <Route path="/meal/:id" element={<ViewMeal />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/my-profile" element={<Profile />} />
@@ -32,6 +34,7 @@ const App = () => {
           <Route path="/admin/users" element={<AdminUsers />} />
           <Route path="/admin/meals" element={<AdminMeals />} />
           <Route path="/admin/ratings" element={<AdminRatings />} />
+        
         </Routes>
         <Footer />
         <ToastContainer />

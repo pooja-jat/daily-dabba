@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { registerUser } from "../features/auth/authSlice";
+import Loader from "../components/Loader";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -47,6 +48,12 @@ const Register = () => {
       toast.error(message);
     }
   }, [user, isError, message]);
+
+  if (isLoading) {
+    return (
+    <Loader />
+  )
+}
 
   return (
     <div className="bg-gradient-to-br from-orange-50 via-yellow-50 to-rose-50 flex items-center justify-center py-12 px-4">

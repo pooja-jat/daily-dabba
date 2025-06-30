@@ -19,7 +19,7 @@ const AdminRatings = () => {
   return (
     <div className="ml-64 flex-1">
       {/* Top Bar */}
-      <header className="bg-white shadow-sm border-b h-16 flex items-center justify-between px-6">
+      <header className="bg-white shadow-sm border-gray-500-b h-16 flex items-center justify-between px-6">
         <div className="flex items-center">
           <Menu className="h-6 w-6 text-gray-600 md:hidden" />
           <h1 className="text-2xl font-semibold text-gray-800 ml-4">
@@ -33,7 +33,7 @@ const AdminRatings = () => {
             <input
               type="text"
               placeholder="Search reviews..."
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none"
+              className="pl-10 pr-4 py-2 border-gray-500 border-gray-500-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-gray-500-orange-500 outline-none"
             />
           </div>
           <Bell className="h-6 w-6 text-gray-600" />
@@ -47,7 +47,7 @@ const AdminRatings = () => {
       <main className="p-6">
         {/* Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-xl shadow-sm p-6 border">
+          <div className="bg-white rounded-xl shadow-sm p-6 border-gray-500">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">
@@ -72,7 +72,7 @@ const AdminRatings = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm p-6 border">
+          <div className="bg-white rounded-xl shadow-sm p-6 border-gray-500">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">
@@ -86,7 +86,7 @@ const AdminRatings = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm p-6 border">
+          <div className="bg-white rounded-xl shadow-sm p-6 border-gray-500">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Positive</p>
@@ -98,7 +98,7 @@ const AdminRatings = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm p-6 border">
+          <div className="bg-white rounded-xl shadow-sm p-6 border-gray-500">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Negative</p>
@@ -112,8 +112,8 @@ const AdminRatings = () => {
         </div>
 
         {/* Rating Distribution */}
-        <div className="bg-white rounded-xl shadow-sm border mb-8">
-          <div className="px-6 py-4 border-b">
+        <div className="bg-white rounded-xl shadow-sm border-gray-500 mb-8">
+          <div className="px-6 py-4 border-gray-500-b">
             <h2 className="text-lg font-semibold text-gray-800">
               Rating Distribution
             </h2>
@@ -161,13 +161,13 @@ const AdminRatings = () => {
         </div>
 
         {/* Recent Reviews */}
-        <div className="bg-white rounded-xl shadow-sm border">
-          <div className="px-6 py-4 border-b flex items-center justify-between">
+        <div className="bg-white rounded-xl shadow-sm border-gray-500">
+          <div className="px-6 py-4 border-gray-500-b flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-800">
               Recent Reviews
             </h2>
             <div className="flex items-center space-x-2">
-              <select className="border border-gray-300 rounded-lg px-3 py-2 text-sm">
+              <select className="border-gray-500 border-gray-500-gray-300 rounded-lg px-3 py-2 text-sm">
                 <option>All Ratings</option>
                 <option>5 Stars</option>
                 <option>4 Stars</option>
@@ -175,7 +175,7 @@ const AdminRatings = () => {
                 <option>2 Stars</option>
                 <option>1 Star</option>
               </select>
-              <select className="border border-gray-300 rounded-lg px-3 py-2 text-sm">
+              <select className="border-gray-500 border-gray-500-gray-300 rounded-lg px-3 py-2 text-sm">
                 <option>All Meals</option>
                 <option>Dal Bati Churma</option>
                 <option>Poha Jalebi</option>
@@ -296,24 +296,24 @@ const AdminRatings = () => {
           </div>
 
           {/* Pagination */}
-          <div className="px-6 py-4 border-t flex items-center justify-between">
+          <div className="px-6 py-4 border-gray-500-t flex items-center justify-between">
             <p className="text-sm text-gray-700">
               Showing 1 to 3 of 1,247 reviews
             </p>
             <div className="flex items-center space-x-2">
-              <button className="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">
+              <button className="px-3 py-2 border-gray-500 border-gray-500-gray-300 rounded-lg text-sm hover:bg-gray-50">
                 Previous
               </button>
               <button className="px-3 py-2 bg-orange-500 text-white rounded-lg text-sm">
                 1
               </button>
-              <button className="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">
+              <button className="px-3 py-2 border-gray-500 border-gray-500-gray-300 rounded-lg text-sm hover:bg-gray-50">
                 2
               </button>
-              <button className="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">
+              <button className="px-3 py-2 border-gray-500 border-gray-500-gray-300 rounded-lg text-sm hover:bg-gray-50">
                 3
               </button>
-              <button className="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">
+              <button className="px-3 py-2 border-gray-500 border-gray-500-gray-300 rounded-lg text-sm hover:bg-gray-50">
                 Next
               </button>
             </div>

@@ -9,7 +9,6 @@ import {
   Settings,
 } from "lucide-react";
 
-
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOutUser } from "../features/auth/authSlice";
@@ -19,13 +18,13 @@ const Navbar = () => {
 
   const { user } = useSelector((state) => state.auth);
 
-  const dispatch = useDispatch()
- 
-  const handleLogout = () => {
-   dispatch(logOutUser())
-  }
+  const dispatch = useDispatch();
 
-  if (location.pathname.includes("admin")) {
+  const handleLogout = () => {
+    dispatch(logOutUser());
+  };
+
+  if (location.pathname.includes('admin')) {
     return (
       <div className="fixed inset-y-0 left-0 w-64 bg-white shadow-lg">
         <div className="flex items-center justify-center h-16 border-b">
@@ -106,18 +105,20 @@ const Navbar = () => {
             </div>
           </Link>
           <div className="hidden md:flex items-center space-x-8">
-            <a
+            <Link
+              to={"/"}
               href="#"
               className="text-gray-700 hover:text-orange-500 font-medium"
             >
               Home
-            </a>
-            <a
+            </Link>
+            <Link
+              to={"/meals"}
               href="#"
               className="text-gray-700 hover:text-orange-500 font-medium"
             >
               Meals
-            </a>
+            </Link>
             <a
               href="#"
               className="text-gray-700 hover:text-orange-500 font-medium"
@@ -140,10 +141,18 @@ const Navbar = () => {
                   0
                 </span>
               </Link>
-              <Link to={"/my-profile"} className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-semibold text-sm">{user?.name[0]}</span>
+              <Link
+                to= {user.isAdmin ? "/admin" : "/my-profile"}
+                className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center"
+              >
+                <span className="text-white font-semibold text-sm">
+                  {user?.name[0]}
+                </span>
               </Link>
-              <button onClick={handleLogout} className=" cursor-pointer text-gray-700 hover:bg-red-800 font-medium bg-red-500 rounded-full py-2 px-4 text-white">
+              <button
+                onClick={handleLogout}
+                className=" cursor-pointer text-gray-700 hover:bg-red-800 font-medium bg-red-500 rounded-full py-2 px-4 text-white"
+              >
                 Logout
               </button>
             </div>
