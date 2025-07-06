@@ -29,8 +29,6 @@ const Home = () => {
             <FeaturedCard />
             <FeaturedCard />
             <FeaturedCard />
-
-      
           </div>
         </div>
       </section>

@@ -17,7 +17,7 @@ import { ToastContainer } from "react-toastify";
 import Meals from "./pages/Meals";
 
 const App = () => {
-  return (
+   return (
     <Router>
       <div className="min-h-screen bg-white">
         <Navbar />

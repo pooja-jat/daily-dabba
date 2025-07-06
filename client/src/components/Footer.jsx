@@ -16,7 +16,7 @@ const Footer = () => {
 
   const location = useLocation();
 
-  if (location.pathname.includes("admin")) {
+  if (location.pathname.includes('admin')) {
     return <></>;
   }
 

@@ -24,7 +24,7 @@ const Navbar = () => {
     dispatch(logOutUser());
   };
 
-  if (location.pathname.includes('admin')) {
+  if (location.pathname.includes("admin")) {
     return (
       <div className="fixed inset-y-0 left-0 w-64 bg-white shadow-lg">
         <div className="flex items-center justify-center h-16 border-b">
@@ -36,8 +36,8 @@ const Navbar = () => {
 
         <nav className="mt-8">
           <div className="px-4 space-y-2">
-            <a
-              href="#"
+            <Link
+              to="/admin"
               className={
                 location.pathname === "/admin"
                   ? "flex items-center px-4 py-3 text-gray-700 bg-orange-50 rounded-lg"
@@ -46,9 +46,9 @@ const Navbar = () => {
             >
               <BarChart3 className="h-5 w-5 mr-3" />
               Dashboard
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/admin/users"
               className={
                 location.pathname === "/admin/users"
                   ? "flex items-center px-4 py-3 text-gray-700 bg-orange-50 rounded-lg"
@@ -57,35 +57,47 @@ const Navbar = () => {
             >
               <Users className="h-5 w-5 mr-3" />
               Users
-            </a>
-            <a
-              href="#"
-              className="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg"
+            </Link>
+            <Link
+              to="/admin/meals"
+              className={
+                location.pathname === "/admin/meals"
+                  ? "flex items-center px-4 py-3 text-gray-700 bg-orange-50 rounded-lg"
+                  : "flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg"
+              }
             >
               <UtensilsCrossed className="h-5 w-5 mr-3" />
               Meals
-            </a>
-            <a
-              href="#"
-              className="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg"
+            </Link>
+            <Link
+              to="/admin/orders"
+              className={
+                location.pathname === "/admin/orders"
+                  ? "flex items-center px-4 py-3 text-gray-700 bg-orange-50 rounded-lg"
+                  : "flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg"
+              }
             >
               <ShoppingCart className="h-5 w-5 mr-3" />
               Orders
-            </a>
-            <a
-              href="#"
-              className="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg"
+            </Link>
+            <Link
+              to="/admin/ratings"
+              className={
+                location.pathname === "/admin/ratings"
+                  ? "flex items-center px-4 py-3 text-gray-700 bg-orange-50 rounded-lg"
+                  : "flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg"
+              }
             >
               <Star className="h-5 w-5 mr-3" />
               Ratings
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/admin/settings"
               className="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg"
             >
               <Settings className="h-5 w-5 mr-3" />
               Settings
-            </a>
+            </Link>
           </div>
         </nav>
       </div>
@@ -142,7 +154,7 @@ const Navbar = () => {
                 </span>
               </Link>
               <Link
-                to= {user.isAdmin ? "/admin" : "/my-profile"}
+                to={user.isAdmin ? "/admin" : "/my-profile"}
                 className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center"
               >
                 <span className="text-white font-semibold text-sm">
