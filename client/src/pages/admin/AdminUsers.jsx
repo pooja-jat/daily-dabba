@@ -196,7 +196,7 @@ const AdminUsers = () => {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                        {new Date(user.createAt).toLocaleDateString("en-US")}
+                        {new Date(user.createdAt).toLocaleDateString("en-IN")}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm">
                         <div className="flex items-center space-x-2">

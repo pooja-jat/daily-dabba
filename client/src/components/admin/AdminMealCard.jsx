@@ -1,14 +1,14 @@
 import { Edit, Eye, Star, Trash2 } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { mealEdit } from "../../features/admin/adminSlice";
-
-const AdminMealCard = ({ meal, handleModel }) => {
+import { Link } from "react-router-dom";
+const AdminMealCard = ({ meal, handleModal }) => {
   const dispatch = useDispatch();
 
   const handleEdit = () => {
     dispatch(mealEdit(meal));
     window.scrollTo(0, 0);
-    handleModel();
+    handleModal();
   };
 
   return (
@@ -46,9 +46,12 @@ const AdminMealCard = ({ meal, handleModel }) => {
         <div className="flex items-center justify-between">
           <span className="text-sm text-gray-500">Orders: 1,247</span>
           <div className="flex items-center space-x-2">
-            <button className="p-2 text-blue-600 hover:bg-blue-50 rounded">
+            <Link
+              to={`/meal/${meal._id}`}
+              className="p-2 text-blue-600 hover:bg-blue-50 rounded"
+            >
               <Eye className="h-4 w-4" />
-            </button>
+            </Link>
             <button
               onClick={handleEdit}
               className="p-2 text-green-600 hover:bg-green-50 rounded"
@@ -56,7 +59,7 @@ const AdminMealCard = ({ meal, handleModel }) => {
               <Edit className="h-4 w-4" />
             </button>
             <button
-              onClick={() => removThisMeal(meal._id)}
+              onClick={() => removeThisMeal(meal._id)}
               className="p-2 text-red-600 hover:bg-red-50 rounded"
             >
               <Trash2 className="h-4 w-4" />

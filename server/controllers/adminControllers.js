@@ -89,7 +89,7 @@ const updateOrder = async(req,res) => {
      throw new Error('Orders Not Found!!')
   }
 
-  const updatedOrder = await Order.findByIdAndUpdate(req.params.oid , req.body , {new: true})
+  const updatedOrder = await Order.findByIdAndUpdate(req.params.oid , req.body , {new: true}).populate('user').populate('meal')
 
   res.status(200).json(updatedOrder)
 }

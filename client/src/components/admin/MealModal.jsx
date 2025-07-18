@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addMeal, updateTheMeal } from "../../features/admin/adminSlice";
 import Loader from "../Loader";
-const MealModel = ({ showModel, handleModel }) => {
+const MealModal = ({ showModal, handleModal }) => {
   const {
     allMeal,
     adminSuccess,
@@ -38,13 +38,13 @@ const MealModel = ({ showModel, handleModel }) => {
     if (editMeal.isEdit) {
       dispatch(updateTheMeal(formData));
       if (adminSuccess) {
-        handleModel();
+        handleModal();
         toast.success("Meal Updated😊!!");
       }
     } else {
       dispatch(addMeal(formData));
       if (adminSuccess) {
-        handleModel();
+        handleModal();
         toast.success("Meal Created😊!!");
       }
     }
@@ -68,7 +68,7 @@ const MealModel = ({ showModel, handleModel }) => {
     <>
       <div
         className={
-          showModel
+          showModal
             ? "fixed  w-full inset-0 bg-opacity-50 backdrop-blur-sm"
             : "hidden"
         }
@@ -77,7 +77,7 @@ const MealModel = ({ showModel, handleModel }) => {
       </div>
       <div
         className={
-          showModel
+          showModal
             ? "relative mr-56 bg-white rounded-2xl shadow-2xl w-full  mx-auto transform transition-all"
             : "hidden"
         }
@@ -88,7 +88,7 @@ const MealModel = ({ showModel, handleModel }) => {
             {editMeal.isEdit ? "edit Your Meal" : "Add New Meal"}
           </h2>
           <button
-            onClick={handleModel}
+            onClick={handleModal}
             className="p-2 hover:bg-gray-100 rounded-full transition-colors"
           >
             <X className="w-5 h-5 text-gray-500" />
@@ -224,4 +224,4 @@ const MealModel = ({ showModel, handleModel }) => {
   );
 };
 
-export default MealModel;
+export default MealModal;

@@ -1,40 +1,54 @@
-import { ArrowLeft, Clock, Minus, Plus, Star, Users } from 'lucide-react';
-import React from 'react'
+import { ArrowLeft, Clock, Star, Users } from "lucide-react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import { getMeal } from "../features/meal/mealSlice";
+import Loader from "../components/Loader";
+import { getRatings } from "../features/ratings/ratingSlice";
 
 const ViewMeal = () => {
+  const { meal, mealSuccess, mealLoading, mealError, mealErrorMessage } =
+    useSelector((state) => state.meal);
+
+  const {
+    ratings,
+    ratingsSuccess,
+    ratingsLoading,
+    ratingsError,
+    ratingsErrorMessage,
+  } = useSelector((state) => state.rating);
+
+  const dispatch = useDispatch();
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(getMeal(id));
+    if (mealSuccess) {
+      dispatch(getRatings(id));
+    }
+  }, []);
+
+  if (mealLoading || ratingsLoading) {
+    return <Loader />;
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Back Button */}
-      <button className="flex items-center text-gray-600 hover:text-orange-500 mb-6">
+      <Link to ={`/meals`} className="flex items-center text-gray-600 hover:text-orange-500 mb-6">
         <ArrowLeft className="h-5 w-5 mr-2" />
         Back to Meals
-      </button>
+      </Link>
 
       <div className="grid lg:grid-cols-2 gap-12">
         {/* Meal Image */}
         <div className="space-y-4">
           <div className="bg-white rounded-2xl overflow-hidden shadow-lg">
             <img
-              src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800"
-              alt="Dal Bati Churma"
+              src={meal.image}
+              alt={meal.name}
               className="w-full h-96 object-cover"
-            />
-          </div>
-          <div className="grid grid-cols-3 gap-4">
-            <img
-              src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=200"
-              alt="Dal Bati Churma"
-              className="w-full h-24 object-cover rounded-lg border-2 border-orange-500"
-            />
-            <img
-              src="https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&w=200"
-              alt="Dal Bati Churma"
-              className="w-full h-24 object-cover rounded-lg hover:border-2 hover:border-orange-500 cursor-pointer"
-            />
-            <img
-              src="https://images.pexels.com/photos/2474658/pexels-photo-2474658.jpeg?auto=compress&cs=tinysrgb&w=200"
-              alt="Dal Bati Churma"
-              className="w-full h-24 object-cover rounded-lg hover:border-2 hover:border-orange-500 cursor-pointer"
             />
           </div>
         </div>
@@ -43,38 +57,43 @@ const ViewMeal = () => {
         <div className="space-y-6">
           <div>
             <h1 className="text-4xl font-bold text-gray-800 mb-2">
-              Dal Bati Churma
+              {meal.name}
             </h1>
             <div className="flex items-center space-x-4 mb-4">
               <div className="flex items-center">
-                {[1, 2, 3, 4, 5].map((star) => (
+                {Array.from(
+                  {
+                    length: meal.rating.reduce(
+                      (p, c) => p + c.rating / meal.rating.length,
+                      0
+                    ),
+                  },
+                  (_, i) => i + 1
+                ).map((star) => (
                   <Star
                     key={star}
                     className="h-5 w-5 text-yellow-400 fill-current"
                   />
                 ))}
-                <span className="text-gray-600 ml-2">(4.8)</span>
+
+                <span className="text-gray-600 ml-2">{meal.rating.length}</span>
               </div>
               <span className="text-gray-400">•</span>
-              <span className="text-gray-600">1,247 reviews</span>
+              <span className="text-gray-600">{meal?.rating?.length}</span>
             </div>
-            <p className="text-3xl font-bold text-orange-500 mb-6">₹180</p>
-          </div>
-
-          <div className="bg-white rounded-xl p-6 shadow-sm border">
-            <h3 className="text-lg font-semibold text-gray-800 mb-3">
-              Description
-            </h3>
-            <p className="text-gray-600 leading-relaxed">
-              Experience the authentic taste of Indore with our traditional Dal
-              Bati Churma. This iconic dish features perfectly baked wheat balls
-              (bati) served with flavorful lentil curry (dal) and sweet crumbled
-              wheat dessert (churma). Made with traditional spices and ghee,
-              this meal brings the essence of Madhya Pradesh to your table.
+            <p className="text-3xl font-bold text-orange-500 mb-6">
+              ₹{meal.price}
             </p>
           </div>
 
-          <div className="bg-white rounded-xl p-6 shadow-sm border">
+          <div className="bg-white rounded-xl p-6 shadow-sm border-gray-400">
+            <h3 className="text-lg font-semibold text-gray-800 mb-3">
+              Description
+            </h3>
+            <p className="text-gray-600 leading-relaxed">{meal.description}</p>
+          </div>
+
+          <div className="bg-white rounded-xl p-6 shadow-sm border-gray-400">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">
               Meal Info
             </h3>
@@ -96,43 +115,11 @@ const ViewMeal = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl p-6 shadow-sm border">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">
-              Ingredients
-            </h3>
-            <div className="grid grid-cols-2 gap-2">
-              <span className="text-gray-600">• Wheat flour</span>
-              <span className="text-gray-600">• Lentils (Dal)</span>
-              <span className="text-gray-600">• Ghee</span>
-              <span className="text-gray-600">• Jaggery</span>
-              <span className="text-gray-600">• Traditional spices</span>
-              <span className="text-gray-600">• Fresh herbs</span>
-            </div>
-          </div>
-
           {/* Quantity and Order */}
-          <div className="bg-white rounded-xl p-6 shadow-sm border">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-semibold text-gray-800">Quantity</h3>
-              <div className="flex items-center space-x-4">
-                <button className="w-10 h-10 rounded-full border-2 border-orange-500 flex items-center justify-center text-orange-500 hover:bg-orange-500 hover:text-white transition duration-200">
-                  <Minus className="h-4 w-4" />
-                </button>
-                <span className="text-xl font-semibold text-gray-800 w-8 text-center">
-                  1
-                </span>
-                <button className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-white hover:bg-orange-600 transition duration-200">
-                  <Plus className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-
+          <div className="bg-white rounded-xl p-6 shadow-sm border-gray-400">
             <div className="space-y-3">
               <button className="w-full bg-orange-500 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:bg-orange-600 transform hover:scale-105 transition duration-300 shadow-lg">
-                Add to Cart - ₹180
-              </button>
-              <button className="w-full border-2 border-orange-500 text-orange-500 py-4 px-6 rounded-xl font-semibold text-lg hover:bg-orange-50 transition duration-300">
-                Order Now
+                Order Now - ₹{meal.price}
               </button>
             </div>
           </div>
@@ -141,68 +128,61 @@ const ViewMeal = () => {
 
       {/* Reviews Section */}
       <div className="mt-16">
-        <div className="bg-white rounded-xl shadow-sm border">
-          <div className="px-6 py-4 border-b">
+        <div className="bg-white rounded-xl shadow-sm border-gray-400">
+          <div className="px-6 py-4 border-gray-400-b">
             <h2 className="text-2xl font-bold text-gray-800">
               Customer Reviews
             </h2>
           </div>
 
           <div className="p-6 space-y-6">
-            <div className="flex items-start space-x-4">
-              <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-semibold">RS</span>
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold text-gray-800">Rahul Sharma</h3>
-                  <div className="flex items-center">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <Star
-                        key={star}
-                        className="h-4 w-4 text-yellow-400 fill-current"
-                      />
-                    ))}
+            {ratings.length === 0 ? (
+              <>
+                <h2 className="text-2xl font-bold text-gray-800">
+                  No Ratings Yet...
+                </h2>
+              </>
+            ) : (
+              ratings.map((item) => {
+                return (
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center">
+                      <span className="text-white font-semibold">
+                        {item.user.name[0]}
+                      </span>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="font-semibold text-gray-800">
+                          {item.user.name}
+                        </h3>
+                        <div className="flex items-center">
+                          {Array.from(
+                            { length: item.rating },
+                            (_, i) => i + 1
+                          ).map((star) => (
+                            <Star
+                              key={star}
+                              className="h-4 w-4 text-yellow-400 fill-current"
+                            />
+                          ))}
+                          <Star className="h-4 w-4 text-gray-300" />
+                        </div>
+                      </div>
+                      <p className="text-gray-600">{item.text}</p>
+                      <p className="text-sm text-gray-500 mt-2">
+                        {new Date(item.createdAt).toLocaleDateString("en-IN")}
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <p className="text-gray-600">
-                  Absolutely delicious! The authentic taste reminded me of my
-                  grandmother's cooking. The bati was perfectly crispy and the
-                  dal was flavorful. Will definitely order again!
-                </p>
-                <p className="text-sm text-gray-500 mt-2">2 days ago</p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-4">
-              <div className="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-semibold">PG</span>
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold text-gray-800">Priya Gupta</h3>
-                  <div className="flex items-center">
-                    {[1, 2, 3, 4].map((star) => (
-                      <Star
-                        key={star}
-                        className="h-4 w-4 text-yellow-400 fill-current"
-                      />
-                    ))}
-                    <Star className="h-4 w-4 text-gray-300" />
-                  </div>
-                </div>
-                <p className="text-gray-600">
-                  Good taste and generous portions. The churma was perfectly
-                  sweet. Delivery was on time and food was still hot.
-                </p>
-                <p className="text-sm text-gray-500 mt-2">1 week ago</p>
-              </div>
-            </div>
+                );
+              })
+            )}
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default ViewMeal
+export default ViewMeal;

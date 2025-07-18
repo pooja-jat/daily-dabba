@@ -3,7 +3,7 @@ import { UtensilsCrossed, Star, Bell, Search, Menu, Plus } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllMeals, removeMeal } from "../../features/admin/adminSlice";
 import Loader from "../../components/Loader";
-import MealModel from "../../components/admin/MealModel";
+import MealModel from "../../components/admin/MealModal";
 import AdminMealCard from "../../components/admin/AdminMealCard";
 
 const AdminMeals = () => {
@@ -17,17 +17,18 @@ const AdminMeals = () => {
   } = useSelector((state) => state.admin);
 
   const dispatch = useDispatch();
-  const [showModel, setShowMode] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  const handleModel = () => {
-    showModel ? setShowMode(false) : setShowMode(true);
+  const handleModal = () => {
+    showModal ? setShowModal(false) : setShowModal(true);
   };
 
   //Remove Meal
-
   const removeThisMeal = (id) => {
     dispatch(removeMeal(id));
   };
+
+
 
   const bestSeller = null;
 
@@ -48,7 +49,7 @@ const AdminMeals = () => {
   return (
     <div className="ml-64 flex-1">
       {/* Top Bar */}
-      <header className="bg-white shadow-sm border-b h-16 flex items-center justify-between px-6">
+      <header className="bg-white shadow-sm border-gray-400-b h-16 flex items-center justify-between px-6">
         <div className="flex items-center">
           <Menu className="h-6 w-6 text-gray-600 md:hidden" />
           <h1 className="text-2xl font-semibold text-gray-800 ml-4">
@@ -62,11 +63,11 @@ const AdminMeals = () => {
             <input
               type="text"
               placeholder="Search meals..."
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none"
+              className="pl-10 pr-4 py-2 border-gray-400 border-gray-400-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-gray-400-orange-500 outline-none"
             />
           </div>
           <button
-            onClick={handleModel}
+            onClick={handleModal}
             className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 flex items-center space-x-2"
           >
             <Plus className="h-4 w-4" />
@@ -79,13 +80,13 @@ const AdminMeals = () => {
         </div>
       </header>
 
-      <MealModel showModel={showModel} handleModel={handleModel} />
+      <MealModel showModal={showModal} handleModal={handleModal} />
 
       {/* Meals Content */}
       <main className="p-6">
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-xl shadow-sm p-6 border">
+          <div className="bg-white rounded-xl shadow-sm p-6 border-gray-400">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Total Meals</p>
@@ -99,7 +100,7 @@ const AdminMeals = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm p-6 border">
+          <div className="bg-white rounded-xl shadow-sm p-6 border-gray-400">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">
@@ -115,7 +116,7 @@ const AdminMeals = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm p-6 border">
+          <div className="bg-white rounded-xl shadow-sm p-6 border-gray-400">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Best Seller</p>
@@ -127,7 +128,7 @@ const AdminMeals = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm p-6 border">
+          <div className="bg-white rounded-xl shadow-sm p-6 border-gray-400">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Avg Rating</p>
@@ -141,17 +142,17 @@ const AdminMeals = () => {
         </div>
 
         {/* Meals Grid */}
-        <div className="bg-white rounded-xl shadow-sm border">
-          <div className="px-6 py-4 border-b flex items-center justify-between">
+        <div className="bg-white rounded-xl shadow-sm border-gray-400">
+          <div className="px-6 py-4 border-gray-400-b flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-800">All Meals</h2>
             <div className="flex items-center space-x-2">
-              <select className="border border-gray-300 rounded-lg px-3 py-2 text-sm">
+              <select className="border-gray-400  rounded-lg px-3 py-2 text-sm">
                 <option>All Categories</option>
                 <option>Main Course</option>
                 <option>Breakfast</option>
                 <option>Snacks</option>
               </select>
-              <select className="border border-gray-300 rounded-lg px-3 py-2 text-sm">
+              <select className="border-gray-400 rounded-lg px-3 py-2 text-sm">
                 <option>All Status</option>
                 <option>Active</option>
                 <option>Inactive</option>
@@ -166,7 +167,7 @@ const AdminMeals = () => {
                   <AdminMealCard
                     key={meal._id}
                     meal={meal}
-                    handleModel={handleModel}
+                    handlaModel={handleModal}
                   />
                 );
               })}
@@ -174,24 +175,24 @@ const AdminMeals = () => {
           </div>
 
           {/* Pagination */}
-          <div className="px-6 py-4 border-t flex items-center justify-between">
+          <div className="px-6 py-4 border-gray-400-t flex items-center justify-between">
             <p className="text-sm text-gray-700">
               Showing {allMeals.length}meals
             </p>
             <div className="flex items-center space-x-2">
-              <button className="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">
+              <button className="px-3 py-2 border-gray-400 border-gray-400-gray-300 rounded-lg text-sm hover:bg-gray-50">
                 Previous
               </button>
               <button className="px-3 py-2 bg-orange-500 text-white rounded-lg text-sm">
                 1
               </button>
-              <button className="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">
+              <button className="px-3 py-2 border-gray-400 border-gray-400-gray-300 rounded-lg text-sm hover:bg-gray-50">
                 2
               </button>
-              <button className="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">
+              <button className="px-3 py-2 border-gray-400 border-gray-400-gray-300 rounded-lg text-sm hover:bg-gray-50">
                 3
               </button>
-              <button className="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">
+              <button className="px-3 py-2 border-gray-400 border-gray-400-gray-300 rounded-lg text-sm hover:bg-gray-50">
                 Next
               </button>
             </div>

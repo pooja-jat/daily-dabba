@@ -210,32 +210,32 @@ const AdminDashboard = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {allOrders.map((order) => {
+                  {/* {allOrders.map((order) => {
                     return (
                       <tr className="hover:bg-gray-50">
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {order._id}
+                          {order?._id}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                          {order.user.name}
+                          {order?.user.name}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                          {order.meal.name}
+                          {order?.meal.name}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                          {order.meal.price}
+                          {order?.meal.price}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span
                             className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                              order.status === "pending"
+                              order?.status === "pending"
                                 ? "bg-yellow-100  text-yellow-800"
                                 : order.status === "delivered"
                                 ? "bg-green-100  text-green-800"
                                 : "bg-red-100  text-red-800"
                             } `}
                           >
-                            {order.status}
+                            {order?.status}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
@@ -245,7 +245,7 @@ const AdminDashboard = () => {
                         </td>
                       </tr>
                     );
-                  })}
+                  })} */}
                 </tbody>
               </table>
              </div>

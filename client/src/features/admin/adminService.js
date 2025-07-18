@@ -77,6 +77,22 @@ const updateMeal = async (updatedMeal, token) => {
   return response.data;
 };
 
+//Update Order
+const updateOrder = async (orderUpdate, token) => {
+  const options = {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await axios.put(
+    `/api/admin/update-order/` + orderUpdate._id,
+   {status: orderUpdate.status},
+    options
+  );
+  return response.data;
+};
+
+
 const adminService = {
   fetchAllUsers,
   fetchAllMeals,
@@ -85,6 +101,7 @@ const adminService = {
   deleteMeal,
   createMeal,
   updateMeal,
+  updateOrder
 };
 
 export default adminService;

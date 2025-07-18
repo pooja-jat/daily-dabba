@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from "react";
 import {
   ShoppingBag,
   Users,
@@ -14,8 +14,39 @@ import {
   ThumbsUp,
   ThumbsDown,
 } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllRatings } from "../../features/admin/adminSlice";
 
 const AdminRatings = () => {
+  const dispatch = useDispatch();
+  const {
+    users,
+    allOrders,
+    allRatings,
+    adminLoading,
+    adminSuccess,
+    adminError,
+    adminErrorMessage,
+  } = useSelector((state) => state.admin);
+
+  //Average Rating
+  const avgRating = allRatings
+    .reduce((p, c) => p + c.rating / allRatings.length, 0)
+    .toFixed(2);
+
+  //Positive Ratings
+
+  const positiveRatings = allRatings.filter((rating) => rating.rating > 3);
+
+  //Nagative Ratings
+  const nagativeRatings = allRatings.filter((rating) => rating.rating <= 3);
+
+  useEffect(() => {
+    if (allRatings.length === 0) {
+      dispatch(getAllRatings());
+    }
+  }, [allRatings]);
+
   return (
     <div className="ml-64 flex-1">
       {/* Top Bar */}
@@ -53,7 +84,7 @@ const AdminRatings = () => {
                 <p className="text-sm font-medium text-gray-600">
                   Average Rating
                 </p>
-                <p className="text-3xl font-bold text-gray-800">4.8</p>
+                <p className="text-3xl font-bold text-gray-800">{avgRating}</p>
               </div>
               <div className="bg-yellow-50 p-3 rounded-lg">
                 <Star className="h-8 w-8 text-yellow-500" />
@@ -67,7 +98,7 @@ const AdminRatings = () => {
                 />
               ))}
               <span className="text-sm text-gray-500 ml-2">
-                (1,247 reviews)
+                {allRatings.length}
               </span>
             </div>
           </div>
@@ -78,7 +109,9 @@ const AdminRatings = () => {
                 <p className="text-sm font-medium text-gray-600">
                   Total Reviews
                 </p>
-                <p className="text-3xl font-bold text-gray-800">1,247</p>
+                <p className="text-3xl font-bold text-gray-800">
+                  {allRatings.length}
+                </p>
               </div>
               <div className="bg-blue-50 p-3 rounded-lg">
                 <MessageSquare className="h-8 w-8 text-blue-500" />
@@ -90,7 +123,9 @@ const AdminRatings = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Positive</p>
-                <p className="text-3xl font-bold text-gray-800">1,089</p>
+                <p className="text-3xl font-bold text-gray-800">
+                  {positiveRatings.length}
+                </p>
               </div>
               <div className="bg-green-50 p-3 rounded-lg">
                 <ThumbsUp className="h-8 w-8 text-green-500" />
@@ -102,7 +137,9 @@ const AdminRatings = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Negative</p>
-                <p className="text-3xl font-bold text-gray-800">158</p>
+                <p className="text-3xl font-bold text-gray-800">
+                  {nagativeRatings.length}
+                </p>
               </div>
               <div className="bg-red-50 p-3 rounded-lg">
                 <ThumbsDown className="h-8 w-8 text-red-500" />
@@ -120,10 +157,10 @@ const AdminRatings = () => {
           </div>
           <div className="p-6">
             <div className="space-y-4">
-              {[5, 4, 3, 2, 1].map((rating) => (
-                <div key={rating} className="flex items-center">
+              {allRatings.map((rating) => (
+                <div key={rating._id} className="flex items-center">
                   <span className="text-sm font-medium text-gray-700 w-8">
-                    {rating}
+                    {rating.rating}
                   </span>
                   <Star className="h-4 w-4 text-yellow-400 fill-current mx-2" />
                   <div className="flex-1 bg-gray-200 rounded-full h-2 mx-4">
@@ -131,22 +168,22 @@ const AdminRatings = () => {
                       className="bg-yellow-400 h-2 rounded-full"
                       style={{
                         width:
-                          rating === 5
+                          rating.rating === 5
                             ? "68%"
-                            : rating === 4
+                            : rating.rating === 4
                             ? "22%"
-                            : rating === 3
+                            : rating.rating === 3
                             ? "6%"
-                            : rating === 2
+                            : rating.rating === 2
                             ? "3%"
                             : "1%",
                       }}
                     ></div>
                   </div>
                   <span className="text-sm text-gray-600 w-12">
-                    {rating === 5
+                    {rating.rating === 5
                       ? "847"
-                      : rating === 4
+                      : rating.rating === 4
                       ? "274"
                       : rating === 3
                       ? "75"
@@ -185,41 +222,45 @@ const AdminRatings = () => {
           </div>
 
           <div className="divide-y divide-gray-200">
-            <div className="p-6">
-              <div className="flex items-start space-x-4">
-                <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
-                  <span className="text-white font-semibold text-sm">RS</span>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between mb-2">
-                    <div>
-                      <h3 className="text-sm font-medium text-gray-900">
-                        Rahul Sharma
-                      </h3>
-                      <p className="text-sm text-gray-500">
-                        Dal Bati Churma • Order #ORD-001
-                      </p>
-                    </div>
-                    <div className="flex items-center">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <Star
-                          key={star}
-                          className="h-4 w-4 text-yellow-400 fill-current"
-                        />
-                      ))}
-                      <span className="text-sm text-gray-500 ml-2">
-                        2 hours ago
+            {allRatings.map((rating) => {
+              return (
+                <div className="p-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
+                      <span className="text-white font-semibold text-sm">
+                        {rating.user.name[0]}
                       </span>
                     </div>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-2">
+                        <div>
+                          <h3 className="text-sm font-medium text-gray-900">
+                            {rating.user.name}
+                          </h3>
+                          <p className="text-sm text-gray-500">
+                            {rating.meal?.name}
+                          </p>
+                        </div>
+                        <div className="flex items-center">
+                          {Array.from({length : rating.rating}, (_, i) => i + 1).map((star) => (
+                            <Star
+                              key={star}
+                              className="h-4 w-4 text-yellow-400 fill-current"
+                            />
+                          ))}
+                          <span className="text-sm text-gray-500 ml-2">
+                            {new Date(rating.createdAt).toLocaleDateString(
+                              "en-IN"
+                            )}
+                          </span>
+                        </div>
+                      </div>
+                      <p className="text-gray-700">{rating.text}</p>
+                    </div>
                   </div>
-                  <p className="text-gray-700">
-                    Excellent food quality! The Dal Bati Churma was authentic
-                    and reminded me of home. Delivery was quick and the food was
-                    still hot. Will definitely order again.
-                  </p>
                 </div>
-              </div>
-            </div>
+              );
+            })}
 
             <div className="p-6">
               <div className="flex items-start space-x-4">
@@ -322,6 +363,6 @@ const AdminRatings = () => {
       </main>
     </div>
   );
-}
+};
 
-export default AdminRatings
+export default AdminRatings;
