@@ -36,10 +36,9 @@ const AdminDashboard = () => {
     .reduce((p, c) => p + c.meal.price, 0);
 
   //Average Rating
-  const avgRating = allRatings.reduce(
-    (p, c) => p + c.rating / allRatings.length,
-    0
-  );
+  const avgRating = allRatings
+    .reduce((p, c) => p + c.rating / allRatings.length, 0)
+    .toFixed(2);
 
   useEffect(() => {
     if (adminError && adminErrorMessage) {
@@ -210,7 +209,7 @@ const AdminDashboard = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {/* {allOrders.map((order) => {
+                  {allOrders.map((order) => {
                     return (
                       <tr className="hover:bg-gray-50">
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -245,7 +244,7 @@ const AdminDashboard = () => {
                         </td>
                       </tr>
                     );
-                  })} */}
+                  })}
                 </tbody>
               </table>
              </div>

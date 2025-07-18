@@ -1,12 +1,17 @@
 import { ArrowLeft, Clock, Star, Users } from "lucide-react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getMeal } from "../features/meal/mealSlice";
 import Loader from "../components/Loader";
-import { getRatings } from "../features/ratings/ratingSlice";
+import { addRating, getRatings } from "../features/ratings/ratingSlice";
+import { addToCart } from "../features/orders/orderSlice";
 
 const ViewMeal = () => {
+   const { id } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+
   const { meal, mealSuccess, mealLoading, mealError, mealErrorMessage } =
     useSelector((state) => state.meal);
 
@@ -18,9 +23,24 @@ const ViewMeal = () => {
     ratingsErrorMessage,
   } = useSelector((state) => state.rating);
 
-  const dispatch = useDispatch();
+  const [rating, setRating] = useState(1);
+  const [review, setReview] = useState("");
 
-  const { id } = useParams();
+  //Add To Cart
+  const handleAddToCart = (meal) => {
+    dispatch(addToCart(meal))
+    navigate("/auth/cart")
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(addRating({
+      rating, text : review , mid : id
+    }))
+    setRating('')
+    setReview ("")
+  
+};
 
   useEffect(() => {
     dispatch(getMeal(id));
@@ -36,7 +56,10 @@ const ViewMeal = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Back Button */}
-      <Link to ={`/meals`} className="flex items-center text-gray-600 hover:text-orange-500 mb-6">
+      <Link
+        to={`/meals`}
+        className="flex items-center text-gray-600 hover:text-orange-500 mb-6"
+      >
         <ArrowLeft className="h-5 w-5 mr-2" />
         Back to Meals
       </Link>
@@ -63,8 +86,8 @@ const ViewMeal = () => {
               <div className="flex items-center">
                 {Array.from(
                   {
-                    length: meal.rating.reduce(
-                      (p, c) => p + c.rating / meal.rating.length,
+                    length: ratings.reduce(
+                      (p, c) => p + c.rating / meal?.rating.length,
                       0
                     ),
                   },
@@ -76,10 +99,10 @@ const ViewMeal = () => {
                   />
                 ))}
 
-                <span className="text-gray-600 ml-2">{meal.rating.length}</span>
+                <span className="text-gray-600 ml-2"></span>
               </div>
-              <span className="text-gray-400">•</span>
-              <span className="text-gray-600">{meal?.rating?.length}</span>
+              <span className="text-gray-400">{ratings.length}</span>
+              <span className="text-gray-600">reviews</span>
             </div>
             <p className="text-3xl font-bold text-orange-500 mb-6">
               ₹{meal.price}
@@ -118,7 +141,7 @@ const ViewMeal = () => {
           {/* Quantity and Order */}
           <div className="bg-white rounded-xl p-6 shadow-sm border-gray-400">
             <div className="space-y-3">
-              <button className="w-full bg-orange-500 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:bg-orange-600 transform hover:scale-105 transition duration-300 shadow-lg">
+              <button onClick={() => handleAddToCart(meal)} className="w-full bg-orange-500 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:bg-orange-600 transform hover:scale-105 transition duration-300 shadow-lg">
                 Order Now - ₹{meal.price}
               </button>
             </div>
@@ -136,6 +159,36 @@ const ViewMeal = () => {
           </div>
 
           <div className="p-6 space-y-6">
+            <h1 className="text-lg font-bold text-gray-800">Add Your Review</h1>
+            <form
+              onSubmit={handleSubmit}
+              className="mb-16 border border-gray-300 p-4  rounded-md"
+            >
+              <select
+                onChange={(e) => setRating(e.target.value)}
+                value={rating}
+                className="w-full border border-gray-200 p-2 rounded-md"
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              <textarea
+                value={review}
+                onChange={(e) => setReview(e.target.value)}
+                placeholder="Enter Your Review"
+                className="w-full border border-gray-200  my-2 p-4 rounded-md"
+              ></textarea>
+              <button
+                type="submit"
+                className="bg-orange-500 w-full py-2 rounded-md text-white font-semobold couser-pointer hover:bg-orange-600"
+              >
+                Submit Review
+              </button>
+            </form>
+
             {ratings.length === 0 ? (
               <>
                 <h2 className="text-2xl font-bold text-gray-800">
@@ -145,7 +198,7 @@ const ViewMeal = () => {
             ) : (
               ratings.map((item) => {
                 return (
-                  <div className="flex items-start space-x-4">
+                  <div key={item._id} className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center">
                       <span className="text-white font-semibold">
                         {item.user.name[0]}

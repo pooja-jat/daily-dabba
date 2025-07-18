@@ -11,7 +11,6 @@ const addOrder = async (req, res) => {
   }
 
   // Create Order
-
   const newOrder = await Order.create({
     user: req.user._id,
     meal: meal._id,
@@ -35,8 +34,8 @@ const updateOrder = async (req, res) => {
 
   const updatedOrder = await Order.findByIdAndUpdate(
     req.params.oid,
-    { status : "cancelled" },
-    { new : true }
+    { status: "cancelled" },
+    { new: true }
   );
   res.status(200).json(updatedOrder);
 };

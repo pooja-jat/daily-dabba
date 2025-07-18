@@ -9,19 +9,24 @@ import {
   Settings,
 } from "lucide-react";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOutUser } from "../features/auth/authSlice";
 
 const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate()
 
   const { user } = useSelector((state) => state.auth);
+  const {cart} = useSelector((state => state.order))
+
+
 
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(logOutUser());
+    dispatch(logOutUser())
+    navigate("/login")
   };
 
   if (location.pathname.includes("admin")) {
@@ -37,7 +42,7 @@ const Navbar = () => {
         <nav className="mt-8">
           <div className="px-4 space-y-2">
             <Link
-              to="/admin"
+              to="/auth/admin"
               className={
                 location.pathname === "/admin"
                   ? "flex items-center px-4 py-3 text-gray-700 bg-orange-50 rounded-lg"
@@ -48,7 +53,7 @@ const Navbar = () => {
               Dashboard
             </Link>
             <Link
-              to="/admin/users"
+              to="/auth/admin/users"
               className={
                 location.pathname === "/admin/users"
                   ? "flex items-center px-4 py-3 text-gray-700 bg-orange-50 rounded-lg"
@@ -59,7 +64,7 @@ const Navbar = () => {
               Users
             </Link>
             <Link
-              to="/admin/meals"
+              to="/auth/admin/meals"
               className={
                 location.pathname === "/admin/meals"
                   ? "flex items-center px-4 py-3 text-gray-700 bg-orange-50 rounded-lg"
@@ -70,7 +75,7 @@ const Navbar = () => {
               Meals
             </Link>
             <Link
-              to="/admin/orders"
+              to="/auth/admin/orders"
               className={
                 location.pathname === "/admin/orders"
                   ? "flex items-center px-4 py-3 text-gray-700 bg-orange-50 rounded-lg"
@@ -81,7 +86,7 @@ const Navbar = () => {
               Orders
             </Link>
             <Link
-              to="/admin/ratings"
+              to="/auth/admin/ratings"
               className={
                 location.pathname === "/admin/ratings"
                   ? "flex items-center px-4 py-3 text-gray-700 bg-orange-50 rounded-lg"
@@ -92,7 +97,7 @@ const Navbar = () => {
               Ratings
             </Link>
             <Link
-              to="/admin/settings"
+              to="/auth/admin/settings"
               className="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg"
             >
               <Settings className="h-5 w-5 mr-3" />
@@ -147,14 +152,14 @@ const Navbar = () => {
 
           {user ? (
             <div className="flex items-center space-x-4">
-              <Link to={"/cart"} className="relative">
+              <Link to={"/auth/cart"} className="relative">
                 <ShoppingCart className="h-6 w-6 text-gray-700" />
                 <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  0
+                {cart ? "01" : "0"}
                 </span>
               </Link>
               <Link
-                to={user.isAdmin ? "/admin" : "/my-profile"}
+                to={user.isAdmin ? "auth/admin" : "auth/my-profile"}
                 className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center"
               >
                 <span className="text-white font-semibold text-sm">

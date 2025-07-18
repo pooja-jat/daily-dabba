@@ -54,6 +54,7 @@ const registerUser = async (req, res) => {
     email: user.email,
     phone: user.phone,
     isAdmin: user.isAdmin,
+    createdAt: user.createdAt,
     token: generatToken(user._id),
   });
 };
@@ -78,6 +79,7 @@ const loginUser = async (req, res) => {
       phone: user.phone,
       isAdmin: user.isAdmin,
       token: generatToken(user._id),
+      createdAt: user.createdAt,
     });
   } else {
     res.status(400);

@@ -35,7 +35,16 @@ const addRating = async(req,res) => {
      res.status(400)
      throw new Error('Rating Not Created!!')
     }
-    res.status(201).json(newRating)
+
+    const ratingData = {
+        _id: newRating.id,
+        rating: newRating.rating,
+        text: newRating.text,
+        createdAt : newRating.createdAt,
+        user: user,
+        meal : meal
+    }
+     res.status(201).json(ratingData)
    
 }
 

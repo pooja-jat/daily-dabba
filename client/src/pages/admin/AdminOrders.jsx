@@ -1,17 +1,15 @@
 import {
   Bell,
   CheckCircle,
-  ChevronDown,
-  Clock,
-  Edit,
-  Package,
+    Clock,
+   Package,
   Plus,
   Search,
   ShoppingCart,
-  Trash2,
+
   X,
 } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllOrders, updateTheOrder } from "../../features/admin/adminSlice";
 
@@ -32,12 +30,12 @@ const AdminOrders = () => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case "Pending":
-        return "bg-yellow-100 text-yellow-800";
-      case "Delivered":
-        return "bg-green-100 text-green-800";
-      case "Cancelled":
-        return "bg-red-100 text-red-800";
+      case "pending":
+        return "text-yellow-600  bg-yellow-200 ";
+      case "delivered":
+        return " text-green-100 bg-green-700";
+      case "cancelled":
+        return "text-red-600 bg-red-500 ";
       default:
         return "bg-gray-100 text-gray-800";
     }
@@ -139,7 +137,10 @@ const AdminOrders = () => {
                   Cancelled Orders
                 </p>
                 <p className="text-3xl font-bold text-gray-900">
-                  {allOrders.filter((item) => item.status === "cancelled").length}
+                  {
+                    allOrders.filter((item) => item.status === "cancelled")
+                      .length
+                  }
                 </p>
               </div>
               <div className="p-3 bg-yellow-50 rounded-full">
@@ -251,7 +252,7 @@ const AdminOrders = () => {
                       onChange={(e) =>
                         updateOrderStatus(order._id, e.target.value)
                       }
-                      className={`px-3 py-1 rounded-full text-xs font-medium border-none focus:ring-2 focus:ring-orange-500 cursor-pointer${getStatusColor(
+                      className={`px-3 py-1 rounded-full text-xs font-medium  focus:ring-2 focus:ring-gray-200  hover:cursor-pointer${getStatusColor(
                         order.status
                       )} `}
                     >
@@ -259,6 +260,7 @@ const AdminOrders = () => {
                       <option value="delivered">Delivered</option>
                       <option value="cancelled">Cancelled</option>
                     </select>
+                 
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
