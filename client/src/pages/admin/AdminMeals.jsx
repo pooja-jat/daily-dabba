@@ -36,7 +36,7 @@ const AdminMeals = () => {
   const avgRating = allRatings.reduce(
     (p, c) => p + c.rating / allRatings.length,
     0
-  );
+  ).toFixed(2);
 
   useEffect(() => {
     dispatch(getAllMeals());

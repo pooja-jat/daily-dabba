@@ -1,17 +1,29 @@
 import {
   Bell,
   CheckCircle,
-    Clock,
-   Package,
+  Clock,
+  Package,
   Plus,
   Search,
   ShoppingCart,
-
   X,
 } from "lucide-react";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllOrders, updateTheOrder } from "../../features/admin/adminSlice";
+
+export const getStatusColor = (status) => {
+  switch (status) {
+    case "pending":
+      return "text-yellow-600  bg-yellow-200 ";
+    case "delivered":
+      return " text-green-200 bg-green-700";
+    case "cancelled":
+      return "text-red-100 bg-red-500 ";
+    default:
+      return "bg-gray-100 text-gray-800";
+  }
+};
 
 const AdminOrders = () => {
   const dispatch = useDispatch();
@@ -25,20 +37,7 @@ const AdminOrders = () => {
   } = useSelector((state) => state.admin);
 
   const updateOrderStatus = (orderId, newStatus) => {
-   dispatch(updateTheOrder({_id : orderId ,status : newStatus}))
-  };
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case "pending":
-        return "text-yellow-600  bg-yellow-200 ";
-      case "delivered":
-        return " text-green-100 bg-green-700";
-      case "cancelled":
-        return "text-red-600 bg-red-500 ";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
+    dispatch(updateTheOrder({ _id: orderId, status: newStatus }));
   };
 
   useEffect(() => {
@@ -217,12 +216,12 @@ const AdminOrders = () => {
                   <div className="flex items-center">
                     <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
                       <span className="text-white font-medium">
-                        {order.user.name[0]}
+                        {order?.user?.name[0]}
                       </span>
                     </div>
                     <div className="ml-3">
                       <div className="text-sm font-medium text-gray-900">
-                        {order.user.name}
+                        {order?.user?.name}
                       </div>
                       <div className="text-sm text-gray-500">Customer</div>
                     </div>
@@ -230,18 +229,18 @@ const AdminOrders = () => {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm font-medium text-gray-900">
-                    {order.meal.name}
+                    {order?.meal?.name}
                   </div>
                   <div className="text-sm text-gray-500">
-                    {order.user.email}
+                    {order?.user?.email}
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm font-medium text-gray-900">
-                    ₹{order.meal.price}
+                    ₹{order?.meal?.price}
                   </div>
                   <div className="text-sm text-gray-500">
-                    {order.user.phone}
+                    {order?.user?.phone}
                   </div>
                 </td>
 
@@ -252,7 +251,7 @@ const AdminOrders = () => {
                       onChange={(e) =>
                         updateOrderStatus(order._id, e.target.value)
                       }
-                      className={`px-3 py-1 rounded-full text-xs font-medium  focus:ring-2 focus:ring-gray-200  hover:cursor-pointer${getStatusColor(
+                      className={`px-3 py-1 rounded-full text-xs font-medium  focus:ring-2   hover:cursor-pointer ${getStatusColor(
                         order.status
                       )} `}
                     >
@@ -260,7 +259,6 @@ const AdminOrders = () => {
                       <option value="delivered">Delivered</option>
                       <option value="cancelled">Cancelled</option>
                     </select>
-                 
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">

@@ -1,24 +1,22 @@
-import { useEffect } from 'react'
-import FeaturedCard from '../components/FeaturedCard';
-import { useDispatch, useSelector } from 'react-redux';
-import { getMeals } from '../features/meal/mealSlice';
-import Loader from '../components/Loader';
+import { useEffect } from "react";
+import FeaturedCard from "../components/FeaturedCard";
+import { useDispatch, useSelector } from "react-redux";
+import { getMeals } from "../features/meal/mealSlice";
+import Loader from "../components/Loader";
 
 const Meals = () => {
+  const { meals, mealSuccess, mealLoading, mealError, mealErrorMessage } =
+    useSelector((state) => state.meal);
 
-   const { meals, mealSuccess, mealLoading, mealError, mealErrorMessage } =
-      useSelector((state) => state.meal);
-  
-    const dispatch = useDispatch()
-    
-    
-    useEffect(() => {
-      dispatch(getMeals());
-    }, []);
-  
-    if (mealLoading) {
-      return <Loader />;
-    }
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMeals());
+  }, []);
+
+  if (mealLoading) {
+    return <Loader />;
+  }
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
@@ -33,6 +31,6 @@ const Meals = () => {
       </div>
     </section>
   );
-}
+};
 
-export default Meals
+export default Meals;

@@ -47,7 +47,7 @@ const AdminMealCard = ({ meal, handleModal }) => {
           <span className="text-sm text-gray-500">Orders: 1,247</span>
           <div className="flex items-center space-x-2">
             <Link
-              to={`/meal/${meal._id}`}
+              to={`/auth/meal/${meal._id}`}
               className="p-2 text-blue-600 hover:bg-blue-50 rounded"
             >
               <Eye className="h-4 w-4" />

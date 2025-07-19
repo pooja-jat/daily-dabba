@@ -228,17 +228,17 @@ const AdminRatings = () => {
                   <div className="flex items-start space-x-4">
                     <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
                       <span className="text-white font-semibold text-sm">
-                        {rating.user.name[0]}
+                        {rating?.user?.name[0]}
                       </span>
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-2">
                         <div>
                           <h3 className="text-sm font-medium text-gray-900">
-                            {rating.user.name}
+                            {rating?.user?.name}
                           </h3>
                           <p className="text-sm text-gray-500">
-                            {rating.meal?.name}
+                            {rating?.meal?.name}
                           </p>
                         </div>
                         <div className="flex items-center">
@@ -262,78 +262,8 @@ const AdminRatings = () => {
               );
             })}
 
-            <div className="p-6">
-              <div className="flex items-start space-x-4">
-                <div className="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center">
-                  <span className="text-white font-semibold text-sm">PG</span>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between mb-2">
-                    <div>
-                      <h3 className="text-sm font-medium text-gray-900">
-                        Priya Gupta
-                      </h3>
-                      <p className="text-sm text-gray-500">
-                        Poha Jalebi Combo • Order #ORD-002
-                      </p>
-                    </div>
-                    <div className="flex items-center">
-                      {[1, 2, 3, 4].map((star) => (
-                        <Star
-                          key={star}
-                          className="h-4 w-4 text-yellow-400 fill-current"
-                        />
-                      ))}
-                      <Star className="h-4 w-4 text-gray-300" />
-                      <span className="text-sm text-gray-500 ml-2">
-                        5 hours ago
-                      </span>
-                    </div>
-                  </div>
-                  <p className="text-gray-700">
-                    Good taste and authentic flavors. The poha was well-prepared
-                    and jalebis were sweet. Only issue was slight delay in
-                    delivery, but overall satisfied with the meal.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-6">
-              <div className="flex items-start space-x-4">
-                <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
-                  <span className="text-white font-semibold text-sm">AP</span>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between mb-2">
-                    <div>
-                      <h3 className="text-sm font-medium text-gray-900">
-                        Amit Patel
-                      </h3>
-                      <p className="text-sm text-gray-500">
-                        Indori Special Thali • Order #ORD-003
-                      </p>
-                    </div>
-                    <div className="flex items-center">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <Star
-                          key={star}
-                          className="h-4 w-4 text-yellow-400 fill-current"
-                        />
-                      ))}
-                      <span className="text-sm text-gray-500 ml-2">
-                        1 day ago
-                      </span>
-                    </div>
-                  </div>
-                  <p className="text-gray-700">
-                    Amazing variety in the thali! Everything was fresh and
-                    tasty. The portions were generous and the packaging was
-                    excellent. Best lunch delivery service in Indore.
-                  </p>
-                </div>
-              </div>
-            </div>
+           
+          
           </div>
 
           {/* Pagination */}

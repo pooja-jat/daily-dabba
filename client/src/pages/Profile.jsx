@@ -1,8 +1,7 @@
-import{ useEffect } from "react";
+import { useEffect } from "react";
 import Loader from "../components/Loader";
-import {toast } from   'react-toastify'
+import { toast } from "react-toastify";
 import {
-
   User,
   MapPin,
   Phone,
@@ -12,43 +11,43 @@ import {
   Star,
   Clock,
   CreditCard,
-
 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { cancelOrder, getOrders } from "../features/orders/orderSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { getStatusColor } from "./admin/AdminOrders";
 
 const Profile = () => {
-  const { user } = useSelector(state => state.auth)
-  const { orders, orderLoading, orderSuccess, orderError, orderErrorMessage } = useSelector(state => state.order)
-  
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  
+  const { user } = useSelector((state) => state.auth);
+  const { orders, orderLoading, orderSuccess, orderError, orderErrorMessage } =
+    useSelector((state) => state.order);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   //Get total orders price
-  const totalSpent = orders.reduce((p, c) => p + c.meal.price, 0)
-  
+  const totalSpent = orders.reduce((p, c) => p + c.meal.price, 0);
+
   const handleCancelOrder = (id) => {
-    dispatch(cancelOrder(id))
-  }
+    dispatch(cancelOrder(id));
+    navigate("/");
+    toast.success("Order Cancelled");
+  };
 
   useEffect(() => {
     if (!user) {
-        navigate("/login")
+      navigate("/login");
     }
-    
-    dispatch(getOrders())
+
+    dispatch(getOrders());
     if (orderError && orderErrorMessage) {
-   toast.error(orderErrorMessage)
- }
-     },[user, orderError , orderErrorMessage])
-
-
+      toast.error(orderErrorMessage);
+    }
+  }, [user, orderError, orderErrorMessage]);
 
   if (orderLoading) {
-     return <Loader />
-   }
-
+    return <Loader />;
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -65,8 +64,9 @@ const Profile = () => {
               </div>
               <h2 className="text-xl font-bold text-gray-800">{user.name}</h2>
               <p className="text-gray-600">
-                Customer since
-                {new Date(user.createdAt).toLocaleDateString("en-IN")}
+                {`Customer since ${new Date(user.createdAt).toLocaleDateString(
+                  "en-IN"
+                )}`}
               </p>
               <button className="mt-4 flex items-center space-x-2 text-orange-500 hover:text-orange-600 mx-auto">
                 <Edit className="h-4 w-4" />
@@ -189,7 +189,11 @@ const Profile = () => {
                           )}
                         </p>
                       </div>
-                      <span className="px-3 py-1 text-sm font-semibold rounded-full bg-gray-100 text-green-800">
+                      <span
+                        className={`px-3 py-1 text-sm font-semibold rounded-full ${getStatusColor(
+                          order.status
+                        )}`}
+                      >
                         {order.status}
                       </span>
                     </div>
@@ -224,14 +228,21 @@ const Profile = () => {
                       >
                         Reorder
                       </Link>
-                      <button
-                        onClick={() => handleCancelOrder(order._id)}
-                        className="text-red-500 hover:text-red-600 text-sm font-medium"
-                      >
-                        {order.status === "delivered"
-                          ? ""
-                          : " Cancel This Order"}
-                      </button>
+                      {order.status === "cancelled" ? (
+                        <Link
+                          to={`/auth/meal/${order.meal._id}`}
+                          className="text-orange-500 hover:text-orange-600 text-sm font-medium"
+                        ></Link>
+                      ) : (
+                        <button
+                          onClick={() => handleCancelOrder(order._id)}
+                          className="text-red-500 hover:text-red-600 text-sm font-medium"
+                        >
+                          {order.status === "delivered"
+                            ? ""
+                            : " Cancel This Order"}
+                        </button>
+                      )}
                       <Link
                         to={`/auth/meal/${order.meal._id}`}
                         className="text-gray-500 hover:text-gray-700 text-sm font-medium"
@@ -250,8 +261,6 @@ const Profile = () => {
               </button>
             </div>
           </div>
-
-        
         </div>
       </div>
     </div>

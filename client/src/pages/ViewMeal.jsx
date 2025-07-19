@@ -8,9 +8,9 @@ import { addRating, getRatings } from "../features/ratings/ratingSlice";
 import { addToCart } from "../features/orders/orderSlice";
 
 const ViewMeal = () => {
-   const { id } = useParams();
+  const { id } = useParams();
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { meal, mealSuccess, mealLoading, mealError, mealErrorMessage } =
     useSelector((state) => state.meal);
@@ -28,19 +28,22 @@ const ViewMeal = () => {
 
   //Add To Cart
   const handleAddToCart = (meal) => {
-    dispatch(addToCart(meal))
-    navigate("/auth/cart")
-  }
+    dispatch(addToCart(meal));
+    navigate("/auth/cart");
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addRating({
-      rating, text : review , mid : id
-    }))
-    setRating('')
-    setReview ("")
-  
-};
+    dispatch(
+      addRating({
+        rating,
+        text: review,
+        mid: id,
+      })
+    );
+    setRating("");
+    setReview("");
+  };
 
   useEffect(() => {
     dispatch(getMeal(id));
@@ -56,6 +59,7 @@ const ViewMeal = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Back Button */}
+
       <Link
         to={`/meals`}
         className="flex items-center text-gray-600 hover:text-orange-500 mb-6"
@@ -63,7 +67,6 @@ const ViewMeal = () => {
         <ArrowLeft className="h-5 w-5 mr-2" />
         Back to Meals
       </Link>
-
       <div className="grid lg:grid-cols-2 gap-12">
         {/* Meal Image */}
         <div className="space-y-4">
@@ -141,14 +144,16 @@ const ViewMeal = () => {
           {/* Quantity and Order */}
           <div className="bg-white rounded-xl p-6 shadow-sm border-gray-400">
             <div className="space-y-3">
-              <button onClick={() => handleAddToCart(meal)} className="w-full bg-orange-500 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:bg-orange-600 transform hover:scale-105 transition duration-300 shadow-lg">
+              <button
+                onClick={() => handleAddToCart(meal)}
+                className="w-full bg-orange-500 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:bg-orange-600 transform hover:scale-105 transition duration-300 shadow-lg"
+              >
                 Order Now - ₹{meal.price}
               </button>
             </div>
           </div>
         </div>
       </div>
-
       {/* Reviews Section */}
       <div className="mt-16">
         <div className="bg-white rounded-xl shadow-sm border-gray-400">

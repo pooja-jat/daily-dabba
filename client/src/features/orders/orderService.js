@@ -31,7 +31,7 @@ const updateOrder = async (id, token) => {
     },
   };
   const response = await axios.put(
-    "/api/order/create-order/" + id,
+    "/api/order/" + id,
     "",
     options
   );

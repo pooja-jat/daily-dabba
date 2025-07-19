@@ -1,4 +1,3 @@
-import React from "react";
 import {
   ShoppingBag,
   Users,
@@ -15,18 +14,16 @@ import { logOutUser } from "../features/auth/authSlice";
 
 const Navbar = () => {
   const location = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.auth);
-  const {cart} = useSelector((state => state.order))
-
-
+  const { cart } = useSelector((state) => state.order);
 
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(logOutUser())
-    navigate("/login")
+    dispatch(logOutUser());
+    navigate("/login");
   };
 
   if (location.pathname.includes("admin")) {
@@ -34,9 +31,12 @@ const Navbar = () => {
       <div className="fixed inset-y-0 left-0 w-64 bg-white shadow-lg">
         <div className="flex items-center justify-center h-16 border-b">
           <ShoppingBag className="h-8 w-8 text-orange-500" />
-          <span className="ml-2 text-xl font-bold text-gray-800">
-            Admin Panel
-          </span>
+          <Link>
+            {" "}
+            <span className="ml-2 text-xl font-bold text-gray-800">
+              Admin Panel
+            </span>
+          </Link>
         </div>
 
         <nav className="mt-8">
@@ -155,7 +155,7 @@ const Navbar = () => {
               <Link to={"/auth/cart"} className="relative">
                 <ShoppingCart className="h-6 w-6 text-gray-700" />
                 <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                {cart ? "01" : "0"}
+                  {cart ? "01" : "0"}
                 </span>
               </Link>
               <Link

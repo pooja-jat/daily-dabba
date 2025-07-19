@@ -216,13 +216,13 @@ const AdminDashboard = () => {
                           {order?._id}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                          {order?.user.name}
+                          {order?.user?.name}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                          {order?.meal.name}
+                          {order?.meal?.name}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                          {order?.meal.price}
+                          {order?.meal?.price}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span
@@ -247,7 +247,7 @@ const AdminDashboard = () => {
                   })}
                 </tbody>
               </table>
-             </div>
+            </div>
           </div>
         </main>
       </div>
