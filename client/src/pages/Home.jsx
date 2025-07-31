@@ -6,13 +6,10 @@ import { getMeals } from "../features/meal/mealSlice";
 import Loader from "../components/Loader";
 
 const Home = () => {
+  const { meals, mealLoading } = useSelector((state) => state.meal);
 
- const { meals, mealSuccess, mealLoading, mealError, mealErrorMessage } =
-    useSelector((state) => state.meal);
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
-  
-  
   useEffect(() => {
     dispatch(getMeals());
   }, []);
@@ -44,10 +41,9 @@ const Home = () => {
             Featured Meals
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {
-              meals.map((meal) => <FeaturedCard key={meal._id} meal={meal} />
-          )
-         }
+            {meals.map((meal) => (
+              <FeaturedCard key={meal._id} meal={meal} />
+            ))}
           </div>
         </div>
       </section>

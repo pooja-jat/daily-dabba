@@ -5,7 +5,7 @@ import { getMeals } from "../features/meal/mealSlice";
 import Loader from "../components/Loader";
 
 const Meals = () => {
-  const { meals, mealSuccess, mealLoading, mealError, mealErrorMessage } =
+  const { meals ,mealLoading} =
     useSelector((state) => state.meal);
 
   const dispatch = useDispatch();

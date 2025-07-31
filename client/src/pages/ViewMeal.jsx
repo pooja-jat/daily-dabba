@@ -12,16 +12,10 @@ const ViewMeal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { meal, mealSuccess, mealLoading, mealError, mealErrorMessage } =
+  const { meal, mealSuccess, mealLoading} =
     useSelector((state) => state.meal);
 
-  const {
-    ratings,
-    ratingsSuccess,
-    ratingsLoading,
-    ratingsError,
-    ratingsErrorMessage,
-  } = useSelector((state) => state.rating);
+  const { ratings, ratingsLoading } = useSelector((state) => state.rating);
 
   const [rating, setRating] = useState(1);
   const [review, setReview] = useState("");

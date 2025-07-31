@@ -11,9 +11,7 @@ const AdminMeals = () => {
     allMeals,
     adminLoading,
     allRatings,
-    adminSuccess,
-    adminError,
-    adminErrorMessage,
+  
   } = useSelector((state) => state.admin);
 
   const dispatch = useDispatch();
@@ -28,15 +26,12 @@ const AdminMeals = () => {
     dispatch(removeMeal(id));
   };
 
-
-
   const bestSeller = null;
 
   //Average Rating
-  const avgRating = allRatings.reduce(
-    (p, c) => p + c.rating / allRatings.length,
-    0
-  ).toFixed(2);
+  const avgRating = allRatings
+    .reduce((p, c) => p + c.rating / allRatings.length, 0)
+    .toFixed(2);
 
   useEffect(() => {
     dispatch(getAllMeals());
