@@ -27,7 +27,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center space-x-2 mb-4">
               <ShoppingBag className="h-8 w-8 text-orange-500" />
-              <span className="text-2xl font-bold">Indori LunchBox</span>
+              <span className="text-2xl font-bold">DailyBite</span>
             </div>
             <p className="text-gray-400">
               Bringing authentic Indori flavors to your table since 2020
@@ -73,7 +73,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4" />
-                <span>hello@indorilunchbox.com</span>
+                <span>hello@DailyBite.com</span>
               </div>
             </div>
           </div>
@@ -89,7 +89,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 Indori LunchBox. All rights reserved.</p>
+          <p>&copy; 2024 DailyBite. All rights reserved.</p>
         </div>
       </div>
     </footer>

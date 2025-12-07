@@ -117,7 +117,7 @@ const Navbar = () => {
             <div className="flex items-center space-x-2">
               <ShoppingBag className="h-8 w-8 text-orange-500" />
               <span className="text-2xl font-bold text-gray-800">
-                Indori LunchBox
+                DailyBite
               </span>
             </div>
           </Link>
@@ -163,7 +163,7 @@ const Navbar = () => {
                 className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center"
               >
                 <span className="text-white font-semibold text-sm">
-                  {user?.name[0]}
+                  {user?.name?.[0]}
                 </span>
               </Link>
               <button
