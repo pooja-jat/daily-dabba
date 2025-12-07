@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === "production") {
 } else {
   app.get("/", (req, res) => {
     res.json({
-      msg: "WELCOME TO DAILY-DABBA API 1.0",
+      msg: "WELCOME TO DailyBite API 1.0",
     });
   });
 }
